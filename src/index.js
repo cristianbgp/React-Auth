@@ -1,12 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import { render } from "react-dom";
+import { Global } from "@emotion/core";
+import { Router } from "@reach/router";
+import { UserProvider } from "./contexts/user";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Login from "./views/login";
+import Home from "./views/home";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function App() {
+  return (
+    <UserProvider>
+      <Global
+        styles={{
+          body: {
+            background: "#fafafa",
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+            margin: 0
+          }
+        }}
+      />
+      <Router>
+        <Login path="/login" />
+        <Home path="/" />
+      </Router>
+    </UserProvider>
+  );
+}
+
+const $root = document.getElementById("root");
+render(<App />, $root);
